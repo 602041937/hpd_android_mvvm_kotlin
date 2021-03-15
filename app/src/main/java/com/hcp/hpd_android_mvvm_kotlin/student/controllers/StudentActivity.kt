@@ -16,6 +16,8 @@ class StudentActivity : BaseActivity<ActivityStudentBinding>() {
 
     lateinit var vm: StudentViewModel
 
+    lateinit var adapter: StudentAdapter
+
     override fun initSetup() {
         super.initSetup()
 
@@ -23,7 +25,17 @@ class StudentActivity : BaseActivity<ActivityStudentBinding>() {
             .create(StudentViewModel::class.java)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = StudentAdapter()
+
+        adapter = StudentAdapter()
+        binding.recyclerView.adapter = adapter
+    }
+
+    override fun initBindVM() {
+        super.initBindVM()
+
+        vm.students.subscribe {
+            adapter.notifyDataSetChanged()
+        }
     }
 
     inner class StudentAdapter : BaseAdapter() {
@@ -38,6 +50,7 @@ class StudentActivity : BaseActivity<ActivityStudentBinding>() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val cell = holder.itemView as StudentCell
+            cell.resetBind()
             val item = vm.students.value[position]
             cell.vm.setData(item)
         }

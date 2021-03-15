@@ -30,7 +30,7 @@ class StudentDetailActivity : BaseActivity<ActivityStudentDetailBinding>() {
         vm.setData(studentId)
 
         val beginTransaction = supportFragmentManager.beginTransaction()
-        studentInfoFragment = StudentInfoFragment.newInstance()
+        studentInfoFragment = StudentInfoFragment.newInstance(studentId)
         beginTransaction.add(R.id.flInfoFragment, studentInfoFragment)
         beginTransaction.commit()
     }

@@ -44,7 +44,6 @@ open class BaseCell<T : ViewBinding> : FrameLayout {
     fun resetBind() {
         compositeDisposable.clear()
         compositeDisposable = CompositeDisposable()
-        initSetup()
         initBindView()
         initBindVM()
     }
